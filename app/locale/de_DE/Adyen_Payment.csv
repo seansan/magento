@@ -16,7 +16,7 @@
 "System error, please try again later: %s", "Systemfehler, bitte versuchen Sie es später erneut: %s"
 "The payment is REFUSED by Adyen.", "Die Bezahlung wurde von ADYEN zurückgewiesen."
 "You will be redirected to Adyen in a few seconds.", "In einigen Sekunden werden Sie zu Adyen weitergeleitet."
-"Your payment failed, Please try again later","Ihre Bezahlung ist fehlgeschlagen."
+"Your payment failed. Please try again later","Ihre Bezahlung ist fehlgeschlagen."
 "--Please Select--","--Bitte auswählen--"
 "Account Number","Kontonummer"
 "Account holder name","Name des Kontoinhabers"
