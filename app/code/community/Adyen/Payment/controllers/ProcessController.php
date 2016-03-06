@@ -139,6 +139,11 @@ class Adyen_Payment_ProcessController extends Mage_Core_Controller_Front_Action 
         }
     }
 
+    public function redirect_tossuccess() {
+      $myargs = array('utm_nooverride' => '1'); // can be set depending on config
+      $this->_redirect('checkout/onepage/success', $myargs);
+    }
+
     public function validate3dAction() {
         try {
             // get current order
@@ -180,7 +185,7 @@ class Adyen_Payment_ProcessController extends Mage_Core_Controller_Front_Action 
                         if ($result == 'Authorised') {
                             $order->setState(Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW, true,
                                 Mage::helper('adyen')->__('3D-secure validation was successful.'))->save();
-                            $this->_redirect('checkout/onepage/success');
+                            $this->redirect_tossuccess();
                         }
                         else {
                             $order->addStatusHistoryComment(Mage::helper('adyen')->__('3D-secure validation was unsuccessful.'))->save();
@@ -227,7 +232,7 @@ class Adyen_Payment_ProcessController extends Mage_Core_Controller_Front_Action 
             $session->setQuoteId($session->getAdyenQuoteId(true));
             $session->getQuote()->setIsActive(false)->save();
 
-            $this->_redirect('checkout/onepage/success');
+            $this->redirect_tossuccess();
         } else {
             $this->cancel();
         }
@@ -294,7 +299,7 @@ class Adyen_Payment_ProcessController extends Mage_Core_Controller_Front_Action 
         $session->setQuoteId($session->getAdyenQuoteId(true));
         $session->getQuote()->setIsActive(false)->save();
         if ($status) {
-            $this->_redirect('checkout/onepage/success');
+            $this->redirect_tossuccess();
         } else {
             $this->cancel();
         }
