@@ -1294,6 +1294,13 @@ class Adyen_Payment_Model_ProcessNotification extends Mage_Core_Model_Abstract {
          * save the order this is needed for older magento version so that status is not reverted to state NEW
          */
         $order->save();
+        
+        // Dispatch success to the system via sales_order_payment_pay: order has been paid so other elements can pick-up on this event
+		// May also be sales_order_payment_capture as both are used, though sales_order_payment_pay is more common
+		$payment = $order->getPayment();
+		$invoice = $order->getInvoice();
+		Mage::dispatchEvent('sales_order_payment_pay', array('payment' => $payment, 'invoice' => $invoice)); 
+        
         $this->_debugData[$this->_count]['_setPaymentAuthorized end'] = 'Order status is changed to authorised status, status is ' . $status . ' and state is: ' . $order->getState();
     }
 
